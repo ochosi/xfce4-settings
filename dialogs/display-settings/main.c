@@ -1875,7 +1875,7 @@ display_settings_dialog_new (GtkBuilder *builder)
 {
     GObject          *combobox;
     GtkCellRenderer  *renderer;
-    GObject          *label, *check, *primary, *primary_label, *mirror, *identify, *primary_indicator;
+    GObject          *label, *check, *primary, *mirror, *identify, *primary_indicator;
     GtkWidget        *button;
     GtkTreeSelection *selection;
 
