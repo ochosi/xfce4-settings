@@ -1269,7 +1269,7 @@ display_settings_get_profiles (void)
             gchar **display_infos_tokens;
 
             display_infos_tokens = g_strsplit (display_infos[m], "/", 2);
-            property = g_strdup_printf ("/%s/%s/EDID", buf, display_infos_tokens[0]);
+            property = g_strdup_printf ("/%s/%s/OutputEdidMd5", buf, display_infos_tokens[0]);
             current_edid = xfconf_channel_get_string (display_channel, property, NULL);
             output_edid = g_strdup_printf ("%s/%s", display_infos_tokens[0], current_edid);
             if (current_edid)
@@ -1628,7 +1628,7 @@ display_settings_profile_create_cb (GtkWidget *widget, GtkBuilder *builder)
         gchar *property;
         gchar *profile_hash;
 
-        profile_hash = g_compute_checksum_for_string (G_CHECKSUM_SHA1, profile_name, strlen(profile_name));
+        profile_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, profile_name, strlen(profile_name));
         property = g_strdup_printf ("/%s", profile_hash);
         for (i = 0; i < xfce_randr->noutput; i++)
             xfce_randr_save_output (xfce_randr, profile_hash, display_channel, i);

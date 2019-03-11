@@ -49,7 +49,7 @@ struct _XfceRandrPrivate
     /* cache for the output/mode info */
     XRROutputInfo      **output_info;
     XfceRRMode         **modes;
-    /* SHA-1 checksum of the EDID */
+    /* MD5 checksum of the EDID */
     gchar              **edid;
 };
 
@@ -425,7 +425,7 @@ xfce_randr_save_output (XfceRandr     *randr,
                 randr->priv->output_info[output]->name);
     xfconf_channel_set_bool (channel, property, mode != NULL);
 
-    g_snprintf (property, sizeof (property), "/%s/%s/EDID", scheme,
+    g_snprintf (property, sizeof (property), "/%s/%s/OutputEdidMd5", scheme,
                 randr->priv->output_info[output]->name);
     xfconf_channel_set_string (channel, property, randr->priv->edid[output]);
 
@@ -564,7 +564,7 @@ xfce_randr_friendly_name (XfceRandr *randr,
 
     if (edid_data) {
         info = decode_edid (edid_data);
-        randr->priv->edid[output] = g_compute_checksum_for_data (G_CHECKSUM_SHA1 , edid_data, 128);
+        randr->priv->edid[output] = g_compute_checksum_for_data (G_CHECKSUM_MD5, edid_data, 128);
     }
 
     /* special case, a laptop */
